@@ -1,0 +1,195 @@
+<form class="form-horizontal">
+    <div class="printsheriff-settings-brand">
+        <img class="printsheriff-logo" src="/plugin/printsheriff/static/img/printsheriff-logo.png" width="40" height="40" alt="">
+        <span class="printsheriff-settings-brand-name">PrintSheriff</span>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="plugin_printsheriff_enabled">Enabled</label>
+        <div class="controls">
+            <input id="plugin_printsheriff_enabled" type="checkbox" data-bind="checked: settings.plugins.printsheriff.enabled">
+            <span class="printsheriff-help">
+                <button type="button" class="printsheriff-help-button" aria-describedby="plugin_printsheriff_enabled_help" aria-label="About enabling PrintSheriff">?</button>
+                <span id="plugin_printsheriff_enabled_help" class="printsheriff-help-text" role="tooltip">Also enable timelapse recording in Settings &gt; Webcam &amp; Timelapse (Timed or On Z Change, not Off). Detection uses the frames OctoPrint captures for the timelapse.</span>
+            </span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Inference mode</label>
+        <div class="controls">
+            <span>Local</span>
+            <span class="printsheriff-help">
+                <button type="button" class="printsheriff-help-button" aria-describedby="plugin_printsheriff_mode_help" aria-label="About inference mode">?</button>
+                <span id="plugin_printsheriff_mode_help" class="printsheriff-help-text" role="tooltip">Classification runs on this device. No remote server is required for predictions.</span>
+            </span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="plugin_printsheriff_threshold">Failure threshold</label>
+        <div class="controls">
+            <input id="plugin_printsheriff_threshold" type="number" min="0" max="1" step="0.01" data-bind="value: settings.plugins.printsheriff.threshold">
+            <span class="printsheriff-help">
+                <button type="button" class="printsheriff-help-button" aria-describedby="plugin_printsheriff_threshold_help" aria-label="About failure threshold">?</button>
+                <span id="plugin_printsheriff_threshold_help" class="printsheriff-help-text" role="tooltip">Probability at or above which a frame counts as failed.</span>
+            </span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="plugin_printsheriff_required_failed_frames">Required failed frames (M)</label>
+        <div class="controls">
+            <input id="plugin_printsheriff_required_failed_frames" type="number" min="1" step="1" data-bind="value: settings.plugins.printsheriff.required_failed_frames">
+            <span class="printsheriff-help">
+                <button type="button" class="printsheriff-help-button" aria-describedby="plugin_printsheriff_required_help" aria-label="About required failed frames">?</button>
+                <span id="plugin_printsheriff_required_help" class="printsheriff-help-text" role="tooltip">Number of failed frames, out of a slightly larger recent window, required to trigger an alert. The extra window frames tolerate occasional flips.</span>
+            </span>
+        </div>
+    </div>
+
+    <details>
+        <summary>Advanced settings</summary>
+
+        <h4>ntfy notification</h4>
+        <div class="control-group">
+            <label class="control-label" for="plugin_printsheriff_ntfy_enabled">Send ntfy alert on failure</label>
+            <div class="controls">
+                <input id="plugin_printsheriff_ntfy_enabled" type="checkbox" data-bind="checked: settings.plugins.printsheriff.ntfy_enabled">
+                <span class="printsheriff-help">
+                    <button type="button" class="printsheriff-help-button" aria-describedby="plugin_printsheriff_ntfy_enabled_help" aria-label="About ntfy failure alerts">?</button>
+                    <span id="plugin_printsheriff_ntfy_enabled_help" class="printsheriff-help-text" role="tooltip">Sends a push notification with the capture attached when a failure is detected.</span>
+                </span>
+            </div>
+        </div>
+        <div data-bind="visible: settings.plugins.printsheriff.ntfy_enabled">
+            <div class="control-group">
+                <label class="control-label" for="plugin_printsheriff_ntfy_server_url">ntfy server URL</label>
+                <div class="controls">
+                    <input class="input-xxlarge" id="plugin_printsheriff_ntfy_server_url" type="url" data-bind="value: settings.plugins.printsheriff.ntfy_server_url" placeholder="https://ntfy.sh">
+                    <span class="printsheriff-help">
+                        <button type="button" class="printsheriff-help-button" aria-describedby="plugin_printsheriff_ntfy_server_help" aria-label="About ntfy server URL">?</button>
+                        <span id="plugin_printsheriff_ntfy_server_help" class="printsheriff-help-text" role="tooltip">Default is https://ntfy.sh. Change this if you use a self-hosted ntfy server.</span>
+                    </span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="plugin_printsheriff_ntfy_topic">ntfy topic</label>
+                <div class="controls">
+                    <input class="input-xxlarge" id="plugin_printsheriff_ntfy_topic" type="text" data-bind="value: settings.plugins.printsheriff.ntfy_topic" placeholder="my-spaghetti-alerts">
+                    <span class="printsheriff-help">
+                        <button type="button" class="printsheriff-help-button" aria-describedby="plugin_printsheriff_ntfy_topic_help" aria-label="About ntfy topic">?</button>
+                        <span id="plugin_printsheriff_ntfy_topic_help" class="printsheriff-help-text" role="tooltip">Topic name to publish alerts to. Subscribe to this topic in your ntfy app.</span>
+                    </span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="plugin_printsheriff_ntfy_token">Access token (optional)</label>
+                <div class="controls">
+                    <input class="input-xxlarge" id="plugin_printsheriff_ntfy_token" type="password" autocomplete="new-password" data-bind="value: settings.plugins.printsheriff.ntfy_token">
+                    <span class="printsheriff-help">
+                        <button type="button" class="printsheriff-help-button" aria-describedby="plugin_printsheriff_ntfy_token_help" aria-label="About ntfy access token">?</button>
+                        <span id="plugin_printsheriff_ntfy_token_help" class="printsheriff-help-text" role="tooltip">Optional Bearer token if your ntfy server or topic requires authentication.</span>
+                    </span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="plugin_printsheriff_ntfy_notify_on_done">Notify when a print finishes</label>
+                <div class="controls">
+                    <input id="plugin_printsheriff_ntfy_notify_on_done" type="checkbox" data-bind="checked: settings.plugins.printsheriff.ntfy_notify_on_done">
+                    <span class="printsheriff-help">
+                        <button type="button" class="printsheriff-help-button" aria-describedby="plugin_printsheriff_ntfy_done_help" aria-label="About print-finished notifications">?</button>
+                        <span id="plugin_printsheriff_ntfy_done_help" class="printsheriff-help-text" role="tooltip">Sends a push notification when a print job completes successfully, with a snapshot from right around when printing actually finished, before any slicer &ldquo;present the print&rdquo; move.</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <h4>Real-time inference</h4>
+        <div class="control-group">
+            <label class="control-label" for="plugin_printsheriff_realtime_enabled">Enable real-time inference</label>
+            <div class="controls">
+                <input id="plugin_printsheriff_realtime_enabled" type="checkbox" data-bind="checked: settings.plugins.printsheriff.realtime_enabled">
+                <span class="printsheriff-help">
+                    <button type="button" class="printsheriff-help-button" aria-describedby="plugin_printsheriff_realtime_help" aria-label="About real-time inference">?</button>
+                    <span id="plugin_printsheriff_realtime_help" class="printsheriff-help-text" role="tooltip">Captures its own webcam snapshots during a print instead of waiting for timelapse frames. Once one capture and inference finishes, the next one starts. No timelapse needs to be enabled.</span>
+                </span>
+            </div>
+        </div>
+        <div class="control-group" data-bind="visible: settings.plugins.printsheriff.realtime_enabled">
+            <label class="control-label" for="plugin_printsheriff_realtime_min_interval">Minimum capture interval (seconds)</label>
+            <div class="controls">
+                <input id="plugin_printsheriff_realtime_min_interval" type="number" min="1" step="0.5" data-bind="value: settings.plugins.printsheriff.realtime_min_interval_seconds">
+                <span class="printsheriff-help">
+                    <button type="button" class="printsheriff-help-button" aria-describedby="plugin_printsheriff_realtime_interval_help" aria-label="About minimum capture interval">?</button>
+                    <span id="plugin_printsheriff_realtime_interval_help" class="printsheriff-help-text" role="tooltip">Lower bound between the start of one capture and the next. Enforced at 1 second minimum.</span>
+                </span>
+            </div>
+        </div>
+        <div class="control-group" data-bind="visible: settings.plugins.printsheriff.realtime_enabled">
+            <label class="control-label" for="plugin_printsheriff_realtime_run_when_idle">Run even when not printing</label>
+            <div class="controls">
+                <input id="plugin_printsheriff_realtime_run_when_idle" type="checkbox" data-bind="checked: settings.plugins.printsheriff.realtime_run_when_idle">
+                <span class="printsheriff-help">
+                    <button type="button" class="printsheriff-help-button" aria-describedby="plugin_printsheriff_realtime_idle_help" aria-label="About running when not printing">?</button>
+                    <span id="plugin_printsheriff_realtime_idle_help" class="printsheriff-help-text" role="tooltip">Keeps capturing and classifying continuously, not just during a print. Useful for watching the bed at any time.</span>
+                </span>
+            </div>
+        </div>
+
+        <h4>Local model</h4>
+        <div class="control-group">
+            <label class="control-label" for="plugin_printsheriff_auto_update">Auto-update model</label>
+            <div class="controls">
+                <input id="plugin_printsheriff_auto_update" type="checkbox" data-bind="checked: settings.plugins.printsheriff.model_auto_update">
+                <span class="printsheriff-help">
+                    <button type="button" class="printsheriff-help-button" aria-describedby="plugin_printsheriff_auto_update_help" aria-label="About auto-update model">?</button>
+                    <span id="plugin_printsheriff_auto_update_help" class="printsheriff-help-text" role="tooltip">Check for a new model at startup and at the start of every print.</span>
+                </span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="plugin_printsheriff_threads">TFLite threads</label>
+            <div class="controls">
+                <input id="plugin_printsheriff_threads" type="number" min="1" step="1" data-bind="value: settings.plugins.printsheriff.tflite_num_threads">
+                <span class="printsheriff-help">
+                    <button type="button" class="printsheriff-help-button" aria-describedby="plugin_printsheriff_threads_help" aria-label="About TFLite threads">?</button>
+                    <span id="plugin_printsheriff_threads_help" class="printsheriff-help-text" role="tooltip">How many CPU threads the on-device interpreter may use.</span>
+                </span>
+            </div>
+        </div>
+
+        <h4>Training-data collection</h4>
+        <div class="control-group">
+            <label class="control-label" for="plugin_printsheriff_upload_enabled">Help improve the model</label>
+            <div class="controls">
+                <input id="plugin_printsheriff_upload_enabled" type="checkbox" data-bind="checked: settings.plugins.printsheriff.upload_enabled">
+                <span class="printsheriff-help">
+                    <button type="button" class="printsheriff-help-button" aria-describedby="plugin_printsheriff_upload_help" aria-label="About helping improve the model">?</button>
+                    <span id="plugin_printsheriff_upload_help" class="printsheriff-help-text" role="tooltip">A sample of webcam captures (every 5th frame, plus uncertain ones) is sent to PrintSheriff so the failure detector can be retrained. Images are stored for 14 days, then deleted.</span>
+                </span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="plugin_printsheriff_every_nth">Upload every Nth frame</label>
+            <div class="controls">
+                <input id="plugin_printsheriff_every_nth" type="number" min="1" step="1" data-bind="value: settings.plugins.printsheriff.upload_every_nth_frame">
+                <span class="printsheriff-help">
+                    <button type="button" class="printsheriff-help-button" aria-describedby="plugin_printsheriff_every_nth_help" aria-label="About upload every Nth frame">?</button>
+                    <span id="plugin_printsheriff_every_nth_help" class="printsheriff-help-text" role="tooltip">Regular sampling interval for training-frame uploads when helping improve the model is enabled.</span>
+                </span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="plugin_printsheriff_margin">Uncertainty margin</label>
+            <div class="controls">
+                <input id="plugin_printsheriff_margin" type="number" min="0" max="1" step="0.01" data-bind="value: settings.plugins.printsheriff.upload_uncertainty_margin">
+                <span class="printsheriff-help">
+                    <button type="button" class="printsheriff-help-button" aria-describedby="plugin_printsheriff_margin_help" aria-label="About uncertainty margin">?</button>
+                    <span id="plugin_printsheriff_margin_help" class="printsheriff-help-text" role="tooltip">Also upload any frame whose probability lands within this distance of the failure threshold.</span>
+                </span>
+            </div>
+        </div>
+    </details>
+
+    <p class="printsheriff-settings-footer">
+        Something wrong or missing?
+        <a href="https://printsheriff.com/contact" target="_blank" rel="noopener noreferrer">Send feedback</a>
+    </p>
+</form>

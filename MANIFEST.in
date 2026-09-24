@@ -1,0 +1,2 @@
+recursive-include octoprint_printsheriff/templates *
+recursive-include octoprint_printsheriff/static *
