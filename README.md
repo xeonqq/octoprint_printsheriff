@@ -12,13 +12,13 @@ the model.
 Install through OctoPrint's **Plugin Manager > Get More... > ... from URL** with:
 
 ```
-https://github.com/xeonqq/OctoPrint-PrintSheriff/archive/master.zip
+https://github.com/xeonqq/octoprint_printsheriff/archive/master.zip
 ```
 
 or with pip on the OctoPrint host:
 
 ```bash
-pip install https://github.com/xeonqq/OctoPrint-PrintSheriff/archive/master.zip
+pip install https://github.com/xeonqq/octoprint_printsheriff/archive/master.zip
 ```
 
 On Raspberry Pi / OctoPi, `numpy` is installed from piwheels and dynamically links against the
