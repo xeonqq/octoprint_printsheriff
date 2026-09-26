@@ -8,6 +8,9 @@ import urllib.parse
 import urllib.request
 
 
+DEFAULT_USER_AGENT = "PrintSheriff-OctoPrint/0.1.0"
+
+
 def send_ntfy_notification(
     server_url,
     topic,
@@ -19,6 +22,7 @@ def send_ntfy_notification(
     tags="warning,3d_printer",
     token=None,
     timeout=10,
+    user_agent=DEFAULT_USER_AGENT,
 ):
     """Publish a push notification to an ntfy server.
 
@@ -41,6 +45,9 @@ def send_ntfy_notification(
         "Priority": str(priority),
         "Tags": str(tags),
     }
+
+    if user_agent and str(user_agent).strip():
+        headers["User-Agent"] = str(user_agent).strip()
 
     if token and str(token).strip():
         headers["Authorization"] = "Bearer {0}".format(str(token).strip())

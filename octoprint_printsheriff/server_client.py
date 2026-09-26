@@ -13,6 +13,7 @@ import urllib.request
 
 
 DOWNLOAD_CHUNK_BYTES = 64 * 1024
+DEFAULT_USER_AGENT = "PrintSheriff-OctoPrint/0.1.0"
 
 
 class InferenceServerClient(object):
@@ -22,9 +23,10 @@ class InferenceServerClient(object):
     dependencies.
     """
 
-    def __init__(self, server_url, timeout_seconds=10):
+    def __init__(self, server_url, timeout_seconds=10, user_agent=DEFAULT_USER_AGENT):
         self.server_url = (server_url or "").rstrip("/")
         self.timeout_seconds = max(1, int(timeout_seconds))
+        self.user_agent = user_agent
 
     def _url(self, path, query=None):
         if not self.server_url:
@@ -35,6 +37,8 @@ class InferenceServerClient(object):
         return url
 
     def _open(self, request):
+        if self.user_agent and not request.has_header("User-agent"):
+            request.add_header("User-Agent", self.user_agent)
         try:
             return urllib.request.urlopen(request, timeout=self.timeout_seconds)
         except (urllib.error.HTTPError, urllib.error.URLError) as error:
