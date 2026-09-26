@@ -33,6 +33,7 @@ dependencies = [
 Homepage = "https://github.com/xeonqq/octoprint_printsheriff"
 Source = "https://github.com/xeonqq/octoprint_printsheriff"
 Issues = "https://github.com/xeonqq/octoprint_printsheriff/issues"
+Privacy = "https://github.com/xeonqq/octoprint_printsheriff/blob/master/PRIVACY.md"
 
 [project.entry-points."octoprint.plugin"]
 printsheriff = "octoprint_printsheriff"

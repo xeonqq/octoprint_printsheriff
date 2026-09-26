@@ -795,6 +795,9 @@ __plugin_description__ = (
 __plugin_author__ = "xeonqq"
 __plugin_license__ = "AGPLv3"
 __plugin_url__ = "https://github.com/xeonqq/octoprint_printsheriff"
+__plugin_privacypolicy__ = (
+    "https://github.com/xeonqq/octoprint_printsheriff/blob/master/PRIVACY.md"
+)
 __plugin_pythoncompat__ = ">=3.9,<4"
 
 

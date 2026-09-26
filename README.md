@@ -4,8 +4,9 @@ Classifies every OctoPrint `CaptureDone` timelapse image and raises a persistent
 plus `M117 Spaghetti detected` after the configured number of consecutive failed predictions.
 
 Inference runs locally on the OctoPrint host with TensorFlow Lite, so detection keeps working
-offline and images stay on the host. Only sampled frames are optionally uploaded to help improve
-the model.
+offline when a model is already cached. The plugin contacts `api.printsheriff.com` to download
+model updates, and only sampled frames are uploaded for model improvement when that setting is
+enabled. See the [privacy policy](PRIVACY.md) for data-handling details.
 
 ## Installation
 
@@ -36,8 +37,9 @@ OctoPrint.
 cannot be installed, install full TensorFlow instead — the plugin imports
 `tflite_runtime.interpreter` first and falls back to `tensorflow.lite`.
 
-Restart OctoPrint. In **Settings > PrintSheriff**, enable the plugin. The model is downloaded from
-`https://api.printsheriff.com` automatically, and once cached no server is needed.
+Restart OctoPrint. In **Settings > PrintSheriff**, enable the plugin. The model is downloaded
+from `https://api.printsheriff.com` automatically. Once cached, no server is needed for local
+inference.
 
 **Timelapse must be enabled** in **Settings > Webcam & Timelapse** (type `Timed` or `On Z Change`,
 not `Off`). The plugin only evaluates frames on OctoPrint's `CaptureDone` event, so with timelapse
