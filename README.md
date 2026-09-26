@@ -23,9 +23,16 @@ the inference time of the last frame. While everything is fine it stays green:
 
 Once the required number of frames in the recent window are classified as failed, the overlay
 turns to `FAILED`, OctoPrint raises a persistent warning and `M117 Spaghetti detected` is sent to
-the printer:
+the printer. If ntfy failure alerts are configured, PrintSheriff also sends a push notification
+with the captured frame attached:
 
 ![The same overlay reading "FAILED: 100.0% fail risk, Failed frames: 3/5" over a webcam image of a spaghetti failure, next to two OctoPrint notifications reporting a possible spaghetti failure with 3 of the last 5 frames failed](static/img/detection_failed_more.png)
+
+<p align="center">
+  <img src="static/img/failed_ntfy.png"
+       alt="ntfy push notification from PrintSheriff reporting a possible print failure with an 81.9% failed probability, three of the last three frames failed, and a photo of spaghetti on the printer bed"
+       width="320">
+</p>
 
 ## Installation
 
