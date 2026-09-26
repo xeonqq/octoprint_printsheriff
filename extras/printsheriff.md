@@ -49,8 +49,9 @@ predictions is reached, the plugin raises a persistent OctoPrint warning and can
 optional ntfy notification with the capture attached.
 
 The plugin can download and cache updated models from `https://api.printsheriff.com`. It can
-also upload selected frames for model improvement when **Help improve the model** is enabled;
-this setting can be disabled in the plugin settings. See the
+also upload selected frames for model improvement when **Help improve the model** is enabled
+(opt-in, disabled by default); this setting can be toggled in the setup wizard or plugin
+settings. See the
 [privacy policy](https://github.com/xeonqq/octoprint_printsheriff/blob/master/PRIVACY.md) for
 data-handling details.
 

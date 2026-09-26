@@ -82,10 +82,11 @@ explains why.
 
 ## Training-data collection
 
-Uploading is **on by default**. Untick **Help improve the model** in Settings > PrintSheriff >
-Advanced to opt out. Selected webcam captures are sent so the detector can be retrained.
-Images are kept for 14 days, then deleted. A frame is uploaded to `POST /v1/collect` when
-**either** condition holds:
+Uploading is **disabled by default (opt-in)**. You can enable **Help improve the model** during
+the first-run setup wizard or in **Settings > PrintSheriff** to contribute anonymous training
+captures and help improve failure detection accuracy for everyone. Images are kept for 14 days,
+then deleted. When enabled, a frame is uploaded to `POST /v1/collect` when **either** condition
+holds:
 
 - it is the every-Nth frame of the print (default: every **5th**), or
 - the prediction is uncertain, i.e. within the **uncertainty margin** of the failure threshold
@@ -139,7 +140,7 @@ training-data collection:
 | Notify when a print finishes | `true` | Send a completion notification with the final timelapse capture when available. |
 | Auto-update model | `true` | Check for a new model at startup and each print start. |
 | TFLite threads | `1` | Interpreter thread count. |
-| Help improve the model | `true` | Send sampled frames for retraining. |
+| Help improve the model | `false` | Send sampled frames for retraining (opt-in). |
 | Upload every Nth frame | `5` | Regular sampling interval for uploads. |
 | Uncertainty margin | `0.2` | Band around the threshold that always uploads. |
 

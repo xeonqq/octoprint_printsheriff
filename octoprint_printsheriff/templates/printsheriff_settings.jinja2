@@ -43,6 +43,16 @@
             </span>
         </div>
     </div>
+    <div class="control-group">
+        <label class="control-label" for="plugin_printsheriff_upload_enabled">Help improve the model</label>
+        <div class="controls">
+            <input id="plugin_printsheriff_upload_enabled" type="checkbox" data-bind="checked: settings.plugins.printsheriff.upload_enabled">
+            <span class="printsheriff-help">
+                <button type="button" class="printsheriff-help-button" aria-describedby="plugin_printsheriff_upload_help" aria-label="About helping improve the model">?</button>
+                <span id="plugin_printsheriff_upload_help" class="printsheriff-help-text" role="tooltip">Optional: Contribute a small sample of webcam captures (every 5th frame and uncertain predictions) to retrain and improve detection accuracy for everyone. Stored securely for 14 days then deleted. Contains no personal data. Detection works fully with or without this.</span>
+            </span>
+        </div>
+    </div>
 
     <details>
         <summary>Advanced settings</summary>
@@ -155,36 +165,33 @@
             </div>
         </div>
 
-        <h4>Training-data collection</h4>
-        <div class="control-group">
-            <label class="control-label" for="plugin_printsheriff_upload_enabled">Help improve the model</label>
-            <div class="controls">
-                <input id="plugin_printsheriff_upload_enabled" type="checkbox" data-bind="checked: settings.plugins.printsheriff.upload_enabled">
-                <span class="printsheriff-help">
-                    <button type="button" class="printsheriff-help-button" aria-describedby="plugin_printsheriff_upload_help" aria-label="About helping improve the model">?</button>
-                    <span id="plugin_printsheriff_upload_help" class="printsheriff-help-text" role="tooltip">A sample of webcam captures (every 5th frame, plus uncertain ones) is sent to PrintSheriff so the failure detector can be retrained. Images are stored for 14 days, then deleted.</span>
-                </span>
+        <h4>Training-data collection (advanced)</h4>
+        <div data-bind="visible: settings.plugins.printsheriff.upload_enabled">
+            <div class="control-group">
+                <label class="control-label" for="plugin_printsheriff_every_nth">Upload every Nth frame</label>
+                <div class="controls">
+                    <input id="plugin_printsheriff_every_nth" type="number" min="1" step="1" data-bind="value: settings.plugins.printsheriff.upload_every_nth_frame">
+                    <span class="printsheriff-help">
+                        <button type="button" class="printsheriff-help-button" aria-describedby="plugin_printsheriff_every_nth_help" aria-label="About upload every Nth frame">?</button>
+                        <span id="plugin_printsheriff_every_nth_help" class="printsheriff-help-text" role="tooltip">Regular sampling interval for training-frame uploads when helping improve the model is enabled.</span>
+                    </span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="plugin_printsheriff_margin">Uncertainty margin</label>
+                <div class="controls">
+                    <input id="plugin_printsheriff_margin" type="number" min="0" max="1" step="0.01" data-bind="value: settings.plugins.printsheriff.upload_uncertainty_margin">
+                    <span class="printsheriff-help">
+                        <button type="button" class="printsheriff-help-button" aria-describedby="plugin_printsheriff_margin_help" aria-label="About uncertainty margin">?</button>
+                        <span id="plugin_printsheriff_margin_help" class="printsheriff-help-text" role="tooltip">Also upload any frame whose probability lands within this distance of the failure threshold.</span>
+                    </span>
+                </div>
             </div>
         </div>
-        <div class="control-group">
-            <label class="control-label" for="plugin_printsheriff_every_nth">Upload every Nth frame</label>
-            <div class="controls">
-                <input id="plugin_printsheriff_every_nth" type="number" min="1" step="1" data-bind="value: settings.plugins.printsheriff.upload_every_nth_frame">
-                <span class="printsheriff-help">
-                    <button type="button" class="printsheriff-help-button" aria-describedby="plugin_printsheriff_every_nth_help" aria-label="About upload every Nth frame">?</button>
-                    <span id="plugin_printsheriff_every_nth_help" class="printsheriff-help-text" role="tooltip">Regular sampling interval for training-frame uploads when helping improve the model is enabled.</span>
-                </span>
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="plugin_printsheriff_margin">Uncertainty margin</label>
-            <div class="controls">
-                <input id="plugin_printsheriff_margin" type="number" min="0" max="1" step="0.01" data-bind="value: settings.plugins.printsheriff.upload_uncertainty_margin">
-                <span class="printsheriff-help">
-                    <button type="button" class="printsheriff-help-button" aria-describedby="plugin_printsheriff_margin_help" aria-label="About uncertainty margin">?</button>
-                    <span id="plugin_printsheriff_margin_help" class="printsheriff-help-text" role="tooltip">Also upload any frame whose probability lands within this distance of the failure threshold.</span>
-                </span>
-            </div>
+        <div data-bind="visible: !settings.plugins.printsheriff.upload_enabled()">
+            <p class="muted" style="margin-left: 20px;">
+                Enable <em>Help improve the model</em> in the main settings above to configure sampling parameters.
+            </p>
         </div>
     </details>
 

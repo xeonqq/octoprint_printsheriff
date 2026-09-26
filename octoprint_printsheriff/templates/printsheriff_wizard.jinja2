@@ -1,0 +1,39 @@
+<div class="printsheriff-wizard">
+    <div class="printsheriff-settings-brand" style="margin-bottom: 20px;">
+        <img class="printsheriff-logo" src="/plugin/printsheriff/static/img/printsheriff-logo.png" width="48" height="48" alt="">
+        <span class="printsheriff-settings-brand-name" style="font-size: 20px;">PrintSheriff Setup</span>
+    </div>
+
+    <p class="lead">
+        Protect your 3D prints from catastrophic spaghetti failures using on-device machine learning.
+    </p>
+
+    <div class="alert alert-info">
+        <strong>Privacy by Design:</strong> Inference runs locally on your OctoPrint host. Your printer's camera feeds are evaluated on-device and are not sent to any cloud service for detection.
+    </div>
+
+    <h4>Help improve AI accuracy for everyone</h4>
+    <p>
+        PrintSheriff learns and improves with community-contributed training data. You can optionally share an anonymous sample of timelapse captures to help train and refine future model releases:
+    </p>
+    <ul>
+        <li><strong>Strictly sampled:</strong> Only a small sample (every 5th frame and uncertain predictions) is collected.</li>
+        <li><strong>Automatic deletion:</strong> Uploaded images are kept for 14 days solely for retraining, then deleted permanently.</li>
+        <li><strong>No personal data:</strong> G-code files, printer names, and network details are never collected.</li>
+        <li><strong>Completely optional:</strong> Local failure detection works 100% offline whether this is enabled or disabled.</li>
+    </ul>
+
+    <div class="well" style="margin-top: 15px; padding: 15px;">
+        <label class="checkbox" style="font-size: 14px; font-weight: bold; cursor: pointer;">
+            <input type="checkbox" data-bind="checked: settings.plugins.printsheriff.upload_enabled">
+            Help improve the model (share sampled frames for retraining)
+        </label>
+        <span class="help-block" style="margin-top: 5px; margin-left: 20px;">
+            You can change this setting at any time in <em>Settings &gt; PrintSheriff</em>.
+        </span>
+    </div>
+
+    <div class="alert alert-success" data-bind="visible: settings.plugins.printsheriff.upload_enabled">
+        Thank you! Your contribution helps make 3D printing more reliable for everyone.
+    </div>
+</div>

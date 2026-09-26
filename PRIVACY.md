@@ -15,14 +15,16 @@ the cached model when possible and does not interrupt printing.
 
 ## Optional training-data uploads
 
-The **Help improve the model** setting is enabled by default. When enabled, PrintSheriff may
-send selected webcam or timelapse JPEG frames to `api.printsheriff.com` over HTTPS for model
-improvement. Uploads include the locally calculated failure probability and the source label
-`local_plugin`. Uploads are best effort and are never required for print-failure detection.
+The **Help improve the model** setting is disabled by default (opt-in). Users can choose to
+enable it during initial setup in the wizard or in **Settings > PrintSheriff** to help train and
+improve future failure-detection models. When enabled, PrintSheriff may send selected webcam or
+timelapse JPEG frames to `api.printsheriff.com` over HTTPS for model improvement. Uploads include
+the locally calculated failure probability and the source label `local_plugin`. Uploads are best
+effort and are never required for print-failure detection.
 
-Users can disable all training-data uploads in **Settings > PrintSheriff > Advanced**. Uploaded
-images are retained by the service for up to 14 days and then deleted, according to the
-service's retention process.
+Users can enable or disable training-data uploads at any time in **Settings > PrintSheriff**.
+Uploaded images are retained by the service for up to 14 days and then deleted, according to
+the service's retention process.
 
 ## ntfy notifications
 

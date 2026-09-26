@@ -61,6 +61,7 @@ class PrintSheriffPlugin(
     octoprint.plugin.SimpleApiPlugin,
     octoprint.plugin.StartupPlugin,
     octoprint.plugin.TemplatePlugin,
+    octoprint.plugin.WizardPlugin,
 ):
     """Evaluate each timelapse capture in a serial worker thread."""
 
@@ -108,7 +109,7 @@ class PrintSheriffPlugin(
             "tflite_num_threads": 1,
             # 0 means "use the crop fraction reported by the inference server".
             "crop_fraction": 0,
-            "upload_enabled": True,
+            "upload_enabled": False,
             "upload_every_nth_frame": 5,
             "upload_uncertainty_margin": 0.2,
             "realtime_enabled": False,
@@ -129,7 +130,10 @@ class PrintSheriffPlugin(
         # custom_bindings defaults to True in OctoPrint; must be set False explicitly so core
         # binds this template's data-bind attributes to the SettingsViewModel. Without it the
         # fields render unbound (ko.dataFor == undefined) and Save persists nothing.
-        return [{"type": "settings", "custom_bindings": False}]
+        return [
+            {"type": "settings", "custom_bindings": False},
+            {"type": "wizard", "custom_bindings": False},
+        ]
 
     def get_assets(self):
         return {
@@ -785,6 +789,32 @@ class PrintSheriffPlugin(
             }
         )
 
+    # ------------------------------------------------------------------ wizard
+
+    def is_wizard_required(self):
+        wizard_version = self._settings.get(["_wizard_version"])
+        return wizard_version is None or wizard_version < self.get_wizard_version()
+
+    def get_wizard_version(self):
+        return 1
+
+    # ------------------------------------------------------------------ software update hook
+
+    def get_update_information(self):
+        return {
+            "printsheriff": {
+                "displayName": "PrintSheriff",
+                "displayVersion": self._plugin_version,
+                # version check: github repository
+                "type": "github_release",
+                "user": "xeonqq",
+                "repo": "octoprint_printsheriff",
+                "current": self._plugin_version,
+                # update method: pip
+                "pip": "https://github.com/xeonqq/octoprint_printsheriff/archive/{target_version}.zip",
+            }
+        }
+
 
 __plugin_name__ = "PrintSheriff"
 __plugin_version__ = "0.1.0"
@@ -808,4 +838,5 @@ def __plugin_load__():
     global __plugin_hooks__
     __plugin_hooks__ = {
         "octoprint.comm.protocol.gcode.queuing": __plugin_implementation__.on_gcode_queuing,
+        "octoprint.plugin.softwareupdate.check_config": __plugin_implementation__.get_update_information,
     }
