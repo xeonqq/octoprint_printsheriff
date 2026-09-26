@@ -14,6 +14,19 @@ offline when a model is already cached. The plugin contacts `api.printsheriff.co
 model updates, and only sampled frames are uploaded for model improvement when that setting is
 enabled. See the [privacy policy](PRIVACY.md) for data-handling details.
 
+## Detection overlay
+
+An overlay on OctoPrint's webcam stream shows the current verdict, the fail-risk probability and
+the inference time of the last frame. While everything is fine it stays green:
+
+![OctoPrint Control tab with the PrintSheriff overlay on the webcam feed reading "OK (25.5% fail risk)" above a green-to-pink risk bar, with the caption "Local inference - 474 ms - uploaded: 0"](static/img/detection_good.png)
+
+Once the required number of frames in the recent window are classified as failed, the overlay
+turns to `FAILED`, OctoPrint raises a persistent warning and `M117 Spaghetti detected` is sent to
+the printer:
+
+![The same overlay reading "FAILED: 100.0% fail risk, Failed frames: 3/5" over a webcam image of a spaghetti failure, next to two OctoPrint notifications reporting a possible spaghetti failure with 3 of the last 5 frames failed](static/img/detection_failed_more.png)
+
 ## Installation
 
 Install through OctoPrint's **Plugin Manager > Get More... > ... from URL** with:
@@ -96,7 +109,22 @@ Extrusion always stops before a presentation move, so that snapshot naturally fr
 from right around when printing really finished, and it takes priority over the regular timelapse
 capture for the print-done ntfy notification.
 
+<p align="center">
+  <img src="static/img/finish_ntfy.png"
+       alt="ntfy phone notification titled 'PrintSheriff: print finished' reporting that the gcode file finished successfully in 15m 51s, with the attached webcam photo of the finished print still on the bed"
+       width="320">
+</p>
+
 ## Settings
+
+The main settings page covers the detection behaviour:
+
+![OctoPrint settings dialog with PrintSheriff selected, showing the Enabled checkbox, Inference mode "Local", Failure threshold 0.8 and Required failed frames (M) 3](static/img/settings1.png)
+
+**Advanced settings** holds ntfy notifications, real-time inference, the local model and
+training-data collection:
+
+![PrintSheriff advanced settings showing ntfy notification fields, an Enable real-time inference checkbox, Local model options for auto-update and TFLite threads, and training-data collection options](static/img/settings_advanced.png)
 
 | Setting | Default | Purpose |
 | --- | --- | --- |
