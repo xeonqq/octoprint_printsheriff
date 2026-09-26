@@ -1,5 +1,11 @@
 # OctoPrint PrintSheriff
 
+<p align="center">
+  <img src="octoprint_printsheriff/static/img/printsheriff-logo.png"
+       alt="PrintSheriff logo: an orange sheriff star containing an eye above a strand of spaghetti extruded from a 3D printer nozzle"
+       width="200">
+</p>
+
 Classifies every OctoPrint `CaptureDone` timelapse image and raises a persistent OctoPrint warning
 plus `M117 Spaghetti detected` after the configured number of consecutive failed predictions.
 
