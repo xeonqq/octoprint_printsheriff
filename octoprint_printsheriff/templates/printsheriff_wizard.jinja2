@@ -25,7 +25,7 @@
 
     <div class="well" style="margin-top: 15px; padding: 15px;">
         <label class="checkbox" style="font-size: 14px; font-weight: bold; cursor: pointer;">
-            <input type="checkbox" data-bind="checked: settings.plugins.printsheriff.upload_enabled">
+            <input type="checkbox" data-bind="checked: (typeof settingsViewModel !== 'undefined' ? settingsViewModel.settings : settings).plugins.printsheriff.upload_enabled">
             Help improve the model (share sampled frames for retraining)
         </label>
         <span class="help-block" style="margin-top: 5px; margin-left: 20px;">
@@ -33,7 +33,7 @@
         </span>
     </div>
 
-    <div class="alert alert-success" data-bind="visible: settings.plugins.printsheriff.upload_enabled">
+    <div class="alert alert-success" data-bind="visible: (typeof settingsViewModel !== 'undefined' ? settingsViewModel.settings : settings).plugins.printsheriff.upload_enabled">
         Thank you! Your contribution helps make 3D printing more reliable for everyone.
     </div>
 </div>
